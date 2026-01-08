@@ -81,7 +81,13 @@ const stripRemasteredTracks = (items: PlaylistedTrack<Track>[]): PlaylistedTrack
 
 type AppMode = 'card-creator' | 'bingo-cards';
 
-const BINGO_CATEGORIES = [
+type BingoCategory = {
+    id: string;
+    label: string;
+    color: string;
+};
+
+const BINGO_CATEGORIES: BingoCategory[] = [
     { id: 'A', label: 'A', color: '#10b981' }, // green
     { id: 'B', label: 'B', color: '#3b82f6' }, // blue
     { id: 'C', label: 'C', color: '#8b5cf6' }, // purple
@@ -89,8 +95,8 @@ const BINGO_CATEGORIES = [
     { id: 'E', label: 'E', color: '#f59e0b' }, // orange
 ];
 
-const generateBingoCard = () => {
-    const squares = [];
+const generateBingoCard = (): BingoCategory[] => {
+    const squares: BingoCategory[] = [];
     // Add exactly 5 squares for each category
     BINGO_CATEGORIES.forEach(category => {
         for (let i = 0; i < 5; i++) {
