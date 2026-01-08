@@ -3,8 +3,6 @@ import { useRef, useState, useEffect } from "react";
 import dayjs from 'dayjs'
 import { Document, Font, Image, Page as PDFPage, PDFViewer, Text, View } from "@react-pdf/renderer";
 import * as QRCode from 'qrcode';
-import notoSansBold from './assets/fonts/NotoSans-Bold.ttf';
-import notoSansRegular from './assets/fonts/NotoSans-Regular.ttf';
 
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID as string;
 const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI as string;
@@ -12,8 +10,8 @@ const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI as string;
 Font.register({
     family: 'NotoSans',
     fonts: [
-        { src: notoSansRegular },
-        { src: notoSansBold, fontWeight: 'bold' },
+        { src: '/fonts/NotoSans-Regular.ttf' },
+        { src: '/fonts/NotoSans-Bold.ttf', fontWeight: 'bold' },
     ],
 });
 
