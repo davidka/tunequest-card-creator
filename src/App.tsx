@@ -1,11 +1,21 @@
 import { PlaylistedTrack, Scopes, SpotifyApi, Track } from "@spotify/web-api-ts-sdk";
 import { useRef, useState, useEffect } from "react";
 import dayjs from 'dayjs'
-import { Document, Image, Page as PDFPage, PDFViewer, Text, View } from "@react-pdf/renderer";
+import { Document, Font, Image, Page as PDFPage, PDFViewer, Text, View } from "@react-pdf/renderer";
 import * as QRCode from 'qrcode';
+import notoSansBold from './assets/fonts/NotoSans-Bold.ttf';
+import notoSansRegular from './assets/fonts/NotoSans-Regular.ttf';
 
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID as string;
 const redirectUri = import.meta.env.VITE_SPOTIFY_REDIRECT_URI as string;
+
+Font.register({
+    family: 'NotoSans',
+    fonts: [
+        { src: notoSansRegular },
+        { src: notoSansBold, fontWeight: 'bold' },
+    ],
+});
 
 const playlistRegex = /^https:\/\/open\.spotify\.com\/playlist\/([a-zA-Z0-9-]+).*$/gm
 const trackUrlRegex = /^(https:\/\/open\.spotify\.com\/(episode|track)\/[a-zA-Z0-9-]+).*$/
@@ -431,6 +441,7 @@ When creating your playlist you need to pay attention to select the original tra
                             {arrayChunks(playlistItems, 12).map((pageChunks, pageIndex) => (
                                 <>
                                     <PDFPage size="A4" key={`page-${pageIndex}`} style={{
+                                        fontFamily: 'NotoSans',
                                         display: 'flex',
                                         flexDirection: 'row',
                                         flexWrap: 'wrap',
@@ -568,6 +579,7 @@ When creating your playlist you need to pay attention to select the original tra
                                         </View>
                                     </PDFPage>
                                     <PDFPage size="A4" key={`page-${pageIndex}`} style={{
+                                        fontFamily: 'NotoSans',
                                         display: 'flex',
                                         flexDirection: 'row',
                                         flexWrap: 'wrap',
@@ -711,6 +723,7 @@ When creating your playlist you need to pay attention to select the original tra
                         <Document>
                             {arrayChunks(bingoCards, 8).map((pageCards, pageIndex) => (
                                 <PDFPage size="A4" key={`bingo-page-${pageIndex}`} style={{
+                                    fontFamily: 'NotoSans',
                                     padding: '10px',
                                     display: 'flex',
                                     flexDirection: 'row',
