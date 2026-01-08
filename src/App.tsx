@@ -129,7 +129,9 @@ function App() {
     const [name, setName] = useState<string>('');
     const [codeType, setCodeType] = useState('qr');
     const inputRef = useRef<HTMLInputElement>(null);
-    const sdk = SpotifyApi.withUserAuthorization(clientId, redirectUri, Scopes.playlistRead);
+    const [clientIdInput, setClientIdInput] = useState<string>(clientId ?? '');
+    const effectiveClientId = clientIdInput.trim() || clientId;
+    const sdk = SpotifyApi.withUserAuthorization(effectiveClientId, redirectUri, Scopes.playlistRead);
     const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
     const [overrideJsonErrorMessage, setOverrideJsonErrorMessage] = useState('');
     const overrideJsonRef = useRef<{ value: any } | null >({value: ""});
@@ -287,6 +289,25 @@ When creating your playlist you need to pay attention to select the original tra
                 {appMode === 'card-creator' ? (
                     <>
                         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-5">
+                    <div className="col-span-1 sm:col-span-4">
+                        <label htmlFor="client-id" className="block text-sm font-semibold leading-6 text-gray-900">
+                            Spotify Client ID
+                        </label>
+                        <p className="mt-1 text-xs text-gray-500">
+                            Create one at <a href="https://developer.spotify.com/dashboard" className="text-indigo-600 hover:text-indigo-500 underline" target="_blank" rel="noreferrer">developer.spotify.com/dashboard</a>
+                        </p>
+                        <div className="mt-2.5">
+                            <input
+                                type="text"
+                                id="client-id"
+                                value={clientIdInput}
+                                placeholder="Enter your Spotify Client ID"
+                                onChange={e => setClientIdInput(e.target.value)}
+                                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex items-end"></div>
 
                     <div className="col-span-1 sm:col-span-4">
                         <label htmlFor="playlist" className="block text-sm font-semibold leading-6 text-gray-900">
